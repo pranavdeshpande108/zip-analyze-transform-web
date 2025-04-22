@@ -54,7 +54,8 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <Header />
       <main className="container max-w-5xl mx-auto px-4 py-8">
-        <div className="grid gap-10">
+        {/* Two horizontal sections */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
           {/* STATIC CODE ANALYSIS SECTION */}
           <Card>
             <CardHeader>
@@ -73,7 +74,6 @@ const Index = () => {
               <p className="mt-4 text-xs text-gray-500">Upload a .zip file containing your codebase for static analysis.</p>
             </CardContent>
           </Card>
-
           {/* BEHAVIORAL ANALYSIS SECTION */}
           <Card>
             <CardHeader>
@@ -92,19 +92,18 @@ const Index = () => {
               <p className="mt-4 text-xs text-gray-500">Upload a .pcap file from a network capture for behavioral analysis.</p>
             </CardContent>
           </Card>
-
-          {/* MAIN REPORT BUTTON */}
-          <div className="flex justify-center mt-10">
-            <Button
-              type="button"
-              size="lg"
-              className="bg-purple-600 text-white hover:bg-purple-700 transition-all px-8 py-4 rounded-lg text-lg shadow-[0_2px_8px_rgba(155,135,245,0.12)]"
-              onClick={handleMainReport}
-              disabled={isProcessing || !zipFile || !pcapFile}
-            >
-              {isProcessing ? "Generating Main Report..." : "Main Report"}
-            </Button>
-          </div>
+        </div>
+        {/* MAIN REPORT BUTTON */}
+        <div className="flex justify-center mt-10">
+          <Button
+            type="button"
+            size="lg"
+            className="bg-purple-600 text-white hover:bg-purple-700 transition-all px-8 py-4 rounded-lg text-lg shadow-[0_2px_8px_rgba(155,135,245,0.12)]"
+            onClick={handleMainReport}
+            disabled={isProcessing || !zipFile || !pcapFile}
+          >
+            {isProcessing ? "Generating Main Report..." : "Main Report"}
+          </Button>
         </div>
       </main>
       <footer className="mt-16 py-6 bg-blue-900 text-white">
@@ -117,4 +116,3 @@ const Index = () => {
 };
 
 export default Index;
-
