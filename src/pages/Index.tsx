@@ -143,23 +143,28 @@ const Index = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col gap-4">
-                <FileUploader 
-                  onFileSelected={handleBehaviorZipSelected}
-                  selectedFile={behaviorZipFile}
-                  onProcess={() => {}}
-                  isProcessing={false}
-                />
-                <FileUploader 
-                  onFileSelected={handleBehaviorFileSelected}
-                  selectedFile={pcapFile}
-                  onProcess={handleBehaviorProcess}
-                  isProcessing={behaviorProcessing}
-                />
-                <p className="mt-4 text-xs text-gray-500">
-                  Upload BOTH a .zip file (related code) <b>and</b> a .pcap network capture for complete behavioral analysis. Both are required.
-                </p>
+              {/* FLEX ROW INSTEAD OF COLUMN */}
+              <div className="flex flex-row gap-4 flex-wrap">
+                <div className="flex-1 min-w-[220px]">
+                  <FileUploader 
+                    onFileSelected={handleBehaviorZipSelected}
+                    selectedFile={behaviorZipFile}
+                    onProcess={() => {}}
+                    isProcessing={false}
+                  />
+                </div>
+                <div className="flex-1 min-w-[220px]">
+                  <FileUploader 
+                    onFileSelected={handleBehaviorFileSelected}
+                    selectedFile={pcapFile}
+                    onProcess={handleBehaviorProcess}
+                    isProcessing={behaviorProcessing}
+                  />
+                </div>
               </div>
+              <p className="mt-4 text-xs text-gray-500">
+                Upload BOTH a .zip file (related code) <b>and</b> a .pcap network capture for complete behavioral analysis. Both are required.
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -186,3 +191,4 @@ const Index = () => {
 };
 
 export default Index;
+
