@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FileUploader } from '../components/FileUploader';
 import { Header } from '../components/Header';
 import { useToast } from "@/components/ui/use-toast";
@@ -11,7 +11,23 @@ const Index = () => {
   const [zipFile, setZipFile] = useState<File | null>(null);
   const [pcapFile, setPcapFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const { toast } = useToast();
+
+  // Ensure component is fully initialized across different contexts
+  useEffect(() => {
+    const initializeApp = () => {
+      console.log("Application initialized in current context");
+      setIsInitialized(true);
+    };
+    
+    // Short timeout to ensure DOM is ready in all contexts
+    const timer = setTimeout(() => {
+      initializeApp();
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleStaticFileSelected = (file: File) => {
     setZipFile(file);
@@ -49,6 +65,17 @@ const Index = () => {
       });
     }, 2000);
   };
+
+  // If the component hasn't initialized yet, show a minimal loading state
+  if (!isInitialized) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-lg">Loading application...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
